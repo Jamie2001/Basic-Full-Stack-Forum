@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+        
+        <script>
+            $(function load(){
+                $(function(){	
+                    $.ajax({
+                        url: '../fetchReplys',
+                        type: 'GET',
+                        success: function(response){
+                            console.log(response);
+
+                            var jsObject = JSON.parse(response) 
+                            console.log(jsObject);
+
+                            for (x in jsObject){
+                            var newR = $('#newPost').clone();                            
+                            newR.children("h1").append(document.createTextNode(jsObject[x].argumentType));
+                            newR.children("p").append(document.createTextNode(jsObject[x].contents));   
+                            newR.children("#user").append(document.createTextNode(jsObject[x].posterID));   
+                          
+                            newR.appendTo(".body");
+                            
+                        }
+                            
+                            	
+                        },
+                    });
+                });
+            });
+
+        </script>
+
+    </head>
+    
+    <body class = "body">
+        <h1 id = "h1" style="font-family: Arial";> COMP5013 Forum: Replys</h1>
+        
+        <div class = "post" id = "newPost" style="background-color:#66FF99;" >
+                
+            <h1 id = "replyType" style="font-family: Arial";></h1>
+            <p id = "postBody" style="font-family: Arial";></p>
+            <p2 id = "user" style="font-family: Arial";></p>
+        
+        </div>
+    </body>
+</html>

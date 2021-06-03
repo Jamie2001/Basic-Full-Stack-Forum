@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- <link rel="stylesheet" href="style.css"> -->
+
+        <script>
+            $(function load(){
+                $(function(){	
+                    $.ajax({
+                        url: '../fetchClaims',
+                        type: 'GET',
+                        success: function(response){
+                            console.log(response);
+
+                            var jsObject = JSON.parse(response) 
+                            console.log(jsObject);
+
+                            for (x in jsObject){
+                            var newC = $('#newPost').clone();                            
+                            newC.children("h1").children("a").append(document.createTextNode(jsObject[x].header));
+                            newC.children("p").append(document.createTextNode(jsObject[x].content)); 
+                            var testTwo = newC.children("h1").children("a").attr("href");
+                            var test = newC.children("h1").children("a").attr("href", testTwo + jsObject[x].ClaimID);
+                            newC.children("#user").append(document.createTextNode(jsObject[x].posterID));   
+                            var sauce = jsObject[x].ClaimID;
+                            newC.data('id',sauce); 
+
+                            newC.appendTo(".body");
+                            
+                        }
+                            
+                            	
+                        },
+                    });
+                });
+            });
+
+        </script>
+
+    </head>
+    
+    <body class = "body">
+        <h1 id = "h1" style="font-family: Arial;"> COMP5013 Forum: Claims</h1>
+        
+        <div class = "post" id = "newPost" data-id = "" style="background-color:#66FF99;" >
+                
+            <h1 id = "postHead" style="font-family: Arial";><a href="http://127.0.0.1:5000/Claim/"></a></h1>
+            <p id = "postBody" style="font-family: Arial";></p>
+            <p2 id = "user" style="font-family: Arial";></p>
+        
+        </div>
+    </body>
+</html>
